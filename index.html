@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Tiếng Anh - Ôn Tập Từ Vựng Flashcard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Video nền trang web -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
+
+    <!-- Thanh thông tin người dùng -->
+    <div id="user-bar" class="user-bar hidden">
+        <span class="user-info">👤 Xin chào: <b id="user-display-name">Guest</b></span>
+        <div id="admin-controls" class="admin-controls hidden">
+            <button id="admin-panel-btn" class="admin-btn" type="button">⚙️ Quản lý Unit</button>
+        </div>
+        <button id="logout-btn" class="logout-btn" type="button">Đăng xuất 🚪</button>
+    </div>
+
+    <!-- Màn hình Đăng nhập -->
+    <div id="login-view" class="login-card">
+        <h2>🔑 ĐĂNG NHẬP HỆ THỐNG</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Tên đăng nhập" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Mật khẩu" required autocomplete="current-password">
+            </div>
+            <p id="login-error" class="error-msg hidden">⚠️ Tài khoản hoặc mật khẩu không chính xác!</p>
+            <button type="submit" class="btn btn-login">Đăng nhập</button>
+        </form>
+    </div>
+
+    <!-- Khung ứng dụng chính -->
+    <div class="container hidden" id="mainContainer">
+        <h1 id="page-title">Vui lòng chọn Lớp học</h1>
+        
+        <button id="back-btn" class="btn back-btn hidden" type="button">⬅ Quay lại</button>
+
+        <div id="grade-view" class="grid"></div>
+
+        <div id="unit-view" class="grid hidden"></div>
+
+        <!-- Khu vực quản trị quyền Unit của học sinh -->
+        <div id="admin-view" class="admin-panel hidden">
+            <div class="admin-panel-header">
+                <div>
+                    <h2>⚙️ Quản lý quyền Unit</h2>
+                    <p>Mở hoặc đóng từng Unit cho từng học sinh trên trình duyệt này.</p>
+                </div>
+                <button id="admin-close-btn" class="admin-close-btn" type="button">✕</button>
+            </div>
+
+            <div class="admin-form-row">
+                <label for="admin-class-select">Lớp học</label>
+                <select id="admin-class-select"></select>
+            </div>
+
+            <div class="admin-form-row">
+                <label for="student-select">Học sinh</label>
+                <select id="student-select"></select>
+            </div>
+
+            <div id="student-summary" class="student-summary"></div>
+
+            <div class="admin-actions">
+                <button id="open-all-units-btn" class="admin-action-btn open-all" type="button">🔓 Mở tất cả Unit</button>
+                <button id="close-all-units-btn" class="admin-action-btn close-all" type="button">🔒 Đóng tất cả Unit</button>
+            </div>
+
+            <div id="admin-unit-list" class="admin-unit-list"></div>
+
+            <div class="admin-progress-section">
+                <div class="admin-progress-title">
+                    <h3>📊 Tiến trình học</h3>
+                    <span id="admin-progress-total"></span>
+                </div>
+                <div id="admin-progress-list" class="admin-progress-list"></div>
+            </div>
+        </div>
+
+        <div id="vocab-view" class="flashcard-box hidden">
+            <div class="topic-header" id="topicText">TOPIC</div>
+            
+            <div class="content-grid" id="flipCard">
+                <div class="left-col">
+                    <button type="button" class="word-group" id="playAudioBtn" title="Nhấn để nghe phát âm (hoặc bấm Space)">
+                        <span class="main-word" id="wordText">Word</span>
+                        <span class="speaker-icon" aria-hidden="true">🔊</span>
+                    </button>
+                    <div class="pronunciation-text" id="pronunciationText">/pronunciation/</div>
+                </div>
+                
+                <div class="right-col">
+                    <div class="meaning-text" id="meaningText">Meaning</div>
+                    <img id="vocabImage" class="vocab-image hidden" src="" alt="Hình minh họa từ vựng">
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" type="button">&#8592; Trước</button>
+                <div class="counter" id="counterText">1 / 1</div>
+                <button class="nav-btn" id="nextBtn" type="button">Sau &#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

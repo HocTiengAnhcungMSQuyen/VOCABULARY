@@ -1,0 +1,765 @@
+:root {
+    --primary-color: #8a3b83;
+    --primary-hover: #6a2a65;
+    --text-dark: #1E3A5F;
+    --text-accent: #e25319;
+    --bg-card: rgba(255, 211, 222, 0.95);
+    --btn-bg: #f07979;
+    --btn-hover: #2ECC71;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #FFFFFF;
+    padding: 15px;
+}
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    background-color: #FFFFFF;
+}
+
+/* --- THANH TÀI KHOẢN (USER BAR) --- */
+.user-bar {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 10px 18px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    z-index: 100;
+}
+
+.user-info {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.logout-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ff6b81;
+}
+
+/* --- MÀN HÌNH ĐĂNG NHẬP --- */
+.login-card {
+    max-width: 400px;
+    width: 100%;
+    background-color: var(--bg-card);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-card h2 {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(138, 59, 131, 0.5);
+}
+
+.btn-login {
+    width: 100%;
+    margin-top: 10px;
+    background-color: var(--primary-color) !important;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+.error-msg {
+    color: #d63031;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* --- KHUNG CHÍNH --- */
+.container {
+    max-width: 700px;
+    width: 100%;
+    background-color: var(--bg-card);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 50px;
+}
+
+h1 {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+/* Lưới chọn Lớp và Unit */
+.grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#grade-view {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+
+#unit-view {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Căn giữa Unit khi dòng cuối dư nút */
+#unit-view .btn:nth-child(4n + 1):nth-last-child(2) {
+    grid-column-start: 2;
+}
+
+/* Nút bấm chọn Lớp / Unit */
+.btn {
+    background-color: var(--btn-bg);
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.btn:hover:not(:disabled) {
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+/* Nút Lớp bị khóa / Không có quyền */
+.btn-locked {
+    background-color: #a4b0be !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-locked:hover {
+    transform: none !important;
+}
+
+.back-btn {
+    background-color: #333;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+}
+
+.back-btn:hover {
+    background-color: #000;
+}
+
+/* GIAO DIỆN FLASHCARD */
+.flashcard-box {
+    text-align: left;
+}
+
+.topic-header {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.content-grid.flipped {
+    transform: rotateY(180deg);
+}
+
+.left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.right-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 5px;
+}
+
+/* Định dạng thẻ button cho nhóm từ vựng */
+button.word-group {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-family: inherit;
+    text-align: left;
+}
+
+button.word-group:hover, button.word-group:focus {
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.6);
+    outline: none;
+}
+
+.main-word {
+    font-size: 2.8rem;
+    color: var(--text-accent);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.speaker-icon {
+    font-size: 2.2rem;
+    color: var(--text-accent);
+    opacity: 0.85;
+}
+
+.meaning-text {
+    font-size: 1.7rem;
+    color: var(--text-accent);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.pronunciation-text {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding-left: 12px;
+}
+
+.vocab-image {
+    margin-top: 15px;
+    width: 100%;
+    max-width: 380px;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+    border-top: 1px solid rgba(138, 59, 131, 0.2);
+    padding-top: 20px;
+}
+
+.nav-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+}
+
+.nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.counter {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 650px) {
+    .admin-class-nickname-row { flex-direction: column; }
+    .admin-action-btn.save-nickname { width: 100%; }
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .main-word { font-size: 2.2rem; }
+    .meaning-text { font-size: 1.4rem; }
+    #unit-view { grid-template-columns: repeat(2, 1fr); }
+}
+
+.admin-class-nickname-box {
+    background: #f5f6fa;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+
+.admin-class-nickname-box > label {
+    display: block;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 7px;
+}
+
+.admin-class-nickname-row {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-class-nickname-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 13px;
+    border: 1px solid #ccd2da;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
+    font-size: 1rem;
+    outline: none;
+}
+
+.admin-class-nickname-row input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(138, 59, 131, 0.12);
+}
+
+.admin-class-nickname-box small {
+    display: block;
+    margin-top: 7px;
+    color: #7b8491;
+    font-size: 0.78rem;
+}
+
+.admin-action-btn.save-nickname {
+    background: var(--primary-color);
+    white-space: nowrap;
+}
+
+/* --- QUẢN TRỊ UNIT --- */
+.admin-controls {
+    display: flex;
+    align-items: center;
+}
+
+.admin-btn {
+    background: #6c5ce7;
+    color: #fff;
+    border: none;
+    padding: 7px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.admin-btn:hover {
+    background: #5747c9;
+    transform: translateY(-1px);
+}
+
+.admin-panel {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    color: var(--text-dark);
+    text-align: left;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+}
+
+.admin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-panel-header h2 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 1.35rem;
+}
+
+.admin-panel-header p {
+    color: #5d6470;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.admin-close-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: #eceff3;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.admin-close-btn:hover {
+    background: #dfe3e8;
+}
+
+.admin-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 12px;
+}
+
+.admin-form-row label {
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.admin-form-row select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #ccd2da;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
+    font-size: 1rem;
+    outline: none;
+}
+
+.admin-form-row select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(138, 59, 131, 0.12);
+}
+
+.student-summary {
+    background: #f5f6fa;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #4b5563;
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.admin-action-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 13px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #fff;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.admin-action-btn:hover {
+    transform: translateY(-1px);
+}
+
+.admin-action-btn.open-all {
+    background: #20a464;
+}
+
+.admin-action-btn.close-all {
+    background: #e74c3c;
+}
+
+.admin-unit-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.admin-unit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid #e4e7eb;
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.admin-unit-info {
+    min-width: 0;
+}
+
+.admin-unit-title {
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.admin-unit-status {
+    margin-top: 2px;
+    font-size: 0.78rem;
+    color: #7b8491;
+}
+
+.unit-toggle {
+    position: relative;
+    flex: 0 0 auto;
+    width: 50px;
+    height: 28px;
+}
+
+.unit-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.unit-slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #b8bec7;
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.unit-slider::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.unit-toggle input:checked + .unit-slider {
+    background: #20a464;
+}
+
+.unit-toggle input:checked + .unit-slider::before {
+    transform: translateX(22px);
+}
+
+@media (max-width: 650px) {
+    .admin-class-nickname-row { flex-direction: column; }
+    .admin-action-btn.save-nickname { width: 100%; }
+    .user-bar {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-radius: 18px;
+    }
+
+    .admin-unit-list {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-actions {
+        flex-direction: column;
+    }
+
+    .admin-action-btn {
+        width: 100%;
+    }
+}
+
+
+/* --- TIẾN TRÌNH HỌC TRONG ADMIN --- */
+.admin-progress-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e5ea;
+}
+
+.admin-progress-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+.admin-progress-title h3 {
+    color: var(--primary-color);
+    font-size: 1.08rem;
+}
+
+#admin-progress-total {
+    color: #5d6470;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.admin-progress-list {
+    display: grid;
+    gap: 10px;
+}
+
+.admin-progress-row {
+    background: #f8f9fb;
+    border: 1px solid #e5e8ed;
+    border-radius: 11px;
+    padding: 11px 12px;
+}
+
+.admin-progress-row-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 7px;
+}
+
+.admin-progress-row-header strong {
+    color: var(--text-dark);
+}
+
+.admin-progress-row-header span {
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.admin-progress-track {
+    width: 100%;
+    height: 9px;
+    background: #e1e5ea;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.admin-progress-bar {
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: #20a464;
+    transition: width 0.25s ease;
+}
+
+.admin-progress-meta {
+    margin-top: 6px;
+    color: #737b87;
+    font-size: 0.76rem;
+}
+
+.btn-unit-locked {
+    background-color: #a4b0be !important;
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.btn-unit-locked:hover {
+    transform: none !important;
+}
+
+@media (max-width: 650px) {
+    .admin-class-nickname-row { flex-direction: column; }
+    .admin-action-btn.save-nickname { width: 100%; }
+    .admin-progress-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #admin-progress-total {
+        text-align: left;
+    }
+}
+
+
+/* --- BỘ LỌC THEO LỚP TRONG ADMIN --- */
+#admin-class-select,
+#student-select {
+    cursor: pointer;
+}
+
+#admin-class-select {
+    font-weight: 800;
+}
+

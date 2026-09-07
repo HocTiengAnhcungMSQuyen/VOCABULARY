@@ -26,6 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // trong code sẽ được cập nhật.
     // Admin vẫn có thể đổi tên trực tiếp trên giao diện.
     // ============================================================
+    // ============================================================
+    // CHỈ HIỂN THỊ 3 LỚP TRÊN GIAO DIỆN
+    // 6  = ENG FLYER
+    // 9  = ENG TEEN
+    // 11 = ENG HIGHSCHOOL
+    // Các lớp khác vẫn có thể còn dữ liệu trong code nhưng sẽ không
+    // xuất hiện trong giao diện chọn lớp và danh sách quản trị.
+    // ============================================================
+    const VISIBLE_GRADES = [6, 9, 11];
+
     const DEFAULT_CLASS_NICKNAMES = {
         1: 'ENG KID 1',
         2: 'ENG KID 2',
@@ -454,9 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getAdminClassList() {
-        // Hiển thị đủ lớp 1-12 để Admin có thể đặt tên cho bất kỳ lớp nào,
-        // kể cả lớp hiện chưa có học sinh.
-        return Array.from({ length: 12 }, (_, index) => index + 1);
+        // Admin chỉ quản lý/hiển thị 3 lớp được phép.
+        return [...VISIBLE_GRADES];
     }
 
     function renderAdminStudents() {
@@ -785,6 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function canAccessGrade(grade) {
         if (!currentUser) return false;
+        if (!VISIBLE_GRADES.includes(Number(grade))) return false;
         if (currentUser.grades === "ALL") return true;
         return Array.isArray(currentUser.grades) && currentUser.grades.includes(grade);
     }
@@ -809,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backBtn.classList.add('hidden');
 
         gradeView.innerHTML = '';
-        for (let i = 1; i <= 12; i++) {
+        VISIBLE_GRADES.forEach(i => {
             const btn = document.createElement('button');
             if (canAccessGrade(i)) {
                 btn.className = 'btn';
@@ -821,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.addEventListener('click', () => alert(`🔒 Bạn không có quyền truy cập Lớp ${i}!`));
             }
             gradeView.appendChild(btn);
-        }
+        });
     }
 
     function showUnits(grade) {

@@ -158,8 +158,21 @@ h1 {
     justify-content: center;
 }
 
+.grade-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 #grade-view {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 500px;
+    width: 100%;
+    margin: 20px auto 0;
 }
 
 #unit-view {
